@@ -25,25 +25,25 @@ RECV_TOTAL_TIMEOUT = 0.1
 RECV_EACH_TIMEOUT = 0.01
 
 
-for i in xrange(numConnections):
+for i in range(numConnections):
     s = socket(AF_INET, SOCK_STREAM)
     s.connect((serverHost, serverPort))
     socketList.append(s)
 
 
-for i in xrange(numTrials):
+for i in range(numTrials):
     socketSubset = []
     randomData = []
     randomLen = []
     socketSubset = random.sample(socketList, numConnections)
-    for j in xrange(numWritesReads):
+    for j in range(numWritesReads):
         random_len = random.randrange(1, numBytes)
         random_string = os.urandom(random_len)
         randomLen.append(random_len)
         randomData.append(random_string)
         socketSubset[j].send(random_string)
 
-    for j in xrange(numWritesReads):
+    for j in range(numWritesReads):
         data = socketSubset[j].recv(randomLen[j])
         start_time = time.time()
         while True:
@@ -57,7 +57,7 @@ for i in xrange(numTrials):
             sys.stderr.write("Error: Data received is not the same as sent! \n")
             sys.exit(1)
 
-for i in xrange(numConnections):
+for i in range(numConnections):
     socketList[i].close()
 
 print "Success!"
